@@ -1,3 +1,4 @@
+import AppRouter from "./router/AppRouter"
 
 
 
@@ -6,7 +7,8 @@ function App() {
   return (
     <>
 
-         <h1>hello everybody</h1>
+        <AppRouter/>
+        
  
     </>
   )

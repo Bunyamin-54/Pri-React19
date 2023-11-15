@@ -13,7 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 
-const pages = ['Dashboard', 'New Blog', 'About'];
+const pages = [
+  {id:1, title:'DASHBORAD', url:'/'},
+  {id:2, title:'NEW BLOG', url:'/newblog'},
+  {id:3, title:'about', url:'/about'}
+];
 
 
 
@@ -91,9 +95,9 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}
-                    
+                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <NavLink  style={({ isActive }) => ({ color: isActive && "red" })} to={page.url} > {page.title}</NavLink>
                   </Typography>
                 </MenuItem>
               ))}
@@ -121,11 +125,11 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.id}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>

@@ -13,13 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import BadgeAvatars from './BadgeAvatars';
+import { Stack } from '@mui/material';
+
 
 const pages = [
   { id: 1, title: 'DASHBORAD', url: '/' },
   { id: 2, title: 'NEW BLOG', url: '/newblog' },
   { id: 3, title: 'ABOUT', url: '/about' }
 ];
-
 
 const LogedOutSettings = [{ id: 1, title: 'Login', url: 'login' }]
 
@@ -30,7 +33,9 @@ const LogedInSettings = [
 
 function Navbar() {
 
-  const token = false
+  const [token, setToken] = useState(true)
+
+  let settings = token ? LogedInSettings : LogedOutSettings
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -49,7 +54,7 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  console.log(token);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -145,11 +150,17 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
+             { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {
+                    token ? <BadgeAvatars /> : <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  }
+
+                </IconButton>
+              </Tooltip>
+            </Stack>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -167,8 +178,10 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <NavLink onClick={() => setting.title === 'Logout' && setToken(!token)} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

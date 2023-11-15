@@ -12,18 +12,26 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const pages = [
-  {id:1, title:'DASHBORAD', url:'/'},
-  {id:2, title:'NEW BLOG', url:'/newblog'},
-  {id:3, title:'about', url:'/about'}
+  { id: 1, title: 'DASHBORAD', url: '/' },
+  { id: 2, title: 'NEW BLOG', url: '/newblog' },
+  { id: 3, title: 'ABOUT', url: '/about' }
 ];
 
 
+const LogedOutSettings = [{ id: 1, title: 'Login', url: 'login' }]
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const LogedInSettings = [
+  { id: 1, title: "My Blogs", url: "myblogs" },
+  { id: 2, title: "Profile", url: "profile" },
+  { id: 3, title: "Logout", url: "/" }];
 
 function Navbar() {
+
+  const token = false
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -46,23 +54,25 @@ function Navbar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-         
+
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: 'inherit',
+              color: 'rgb(81, 12, 81)',
               textDecoration: 'none',
             }}
           >
-            TEAM WORK
+            <Link to={'/'} style={{ textDecoration: 'none' }}>
+              TEAM WORK
+            </Link>
+
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -97,7 +107,7 @@ function Navbar() {
               {pages.map((page) => (
                 <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <NavLink  style={({ isActive }) => ({ color: isActive && "red" })} to={page.url} > {page.title}</NavLink>
+                    <NavLink style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={page.url} > {page.title}</NavLink>
                   </Typography>
                 </MenuItem>
               ))}
@@ -129,7 +139,7 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page.title}
+                <NavLink style={({ isActive }) => ({ color: isActive ? "rgb(255, 255, 255)" : 'black', textDecoration: 'none' })} to={page.url} > {page.title}</NavLink>
               </Button>
             ))}
           </Box>

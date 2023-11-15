@@ -13,14 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import { useState } from 'react';
 import BadgeAvatars from './BadgeAvatars';
 import { Stack } from '@mui/material';
 
-=======
-import BadgeAvatars from './BadgeAvatars';
->>>>>>> origin/Abdulla15/11
 
 const pages = [
   { id: 1, title: 'DASHBORAD', url: '/' },
@@ -37,15 +33,9 @@ const LogedInSettings = [
 
 function Navbar() {
 
-<<<<<<< HEAD
   const [token, setToken] = useState(true)
 
   let settings = token ? LogedInSettings : LogedOutSettings
-=======
-  let token = false
-
-  const settings=token ? LogedInSettings :LogedOutSettings
->>>>>>> origin/Abdulla15/11
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

@@ -160,9 +160,8 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-<<<<<<< HEAD
             <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-             { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
+              { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   {
@@ -172,14 +171,6 @@ function Navbar() {
                 </IconButton>
               </Tooltip>
             </Stack>
-=======
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <BadgeAvatars/>
-              </IconButton>
-            </Tooltip>
->>>>>>> origin/Abdulla15/11
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

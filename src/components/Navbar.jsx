@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import BadgeAvatars from './BadgeAvatars';
 
 const pages = [
   { id: 1, title: 'DASHBORAD', url: '/' },
@@ -30,7 +31,9 @@ const LogedInSettings = [
 
 function Navbar() {
 
-  const token = false
+  let token = false
+
+  const settings=token ? LogedInSettings :LogedOutSettings
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -148,6 +151,7 @@ function Navbar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <BadgeAvatars/>
               </IconButton>
             </Tooltip>
             <Menu

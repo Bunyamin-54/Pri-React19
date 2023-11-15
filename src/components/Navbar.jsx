@@ -13,10 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { useState } from 'react';
 import BadgeAvatars from './BadgeAvatars';
 import { Stack } from '@mui/material';
 
+=======
+import BadgeAvatars from './BadgeAvatars';
+>>>>>>> origin/Abdulla15/11
 
 const pages = [
   { id: 1, title: 'DASHBORAD', url: '/' },
@@ -33,9 +37,15 @@ const LogedInSettings = [
 
 function Navbar() {
 
+<<<<<<< HEAD
   const [token, setToken] = useState(true)
 
   let settings = token ? LogedInSettings : LogedOutSettings
+=======
+  let token = false
+
+  const settings=token ? LogedInSettings :LogedOutSettings
+>>>>>>> origin/Abdulla15/11
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -150,6 +160,7 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+<<<<<<< HEAD
             <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
              { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
               <Tooltip title="Open settings">
@@ -161,6 +172,14 @@ function Navbar() {
                 </IconButton>
               </Tooltip>
             </Stack>
+=======
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <BadgeAvatars/>
+              </IconButton>
+            </Tooltip>
+>>>>>>> origin/Abdulla15/11
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

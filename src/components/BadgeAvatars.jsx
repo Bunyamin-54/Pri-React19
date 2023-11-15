@@ -1,9 +1,17 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Abdulla15/11
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
+<<<<<<< HEAD
 const StyledBadge = styled(Badge)(({ theme }) => ({
+=======
+const BadgeAvatars = styled(Badge)(({ theme }) => ({
+>>>>>>> origin/Abdulla15/11
   '& .MuiBadge-badge': {
     backgroundColor: '#44b700',
     color: '#44b700',
@@ -32,7 +40,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+<<<<<<< HEAD
 
+=======
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+  width: 22,
+  height: 22,
+  border: `2px solid ${theme.palette.background.paper}`,
+}));
+>>>>>>> origin/Abdulla15/11
 
 export default function BadgeAvatars() {
   return (
@@ -44,7 +60,19 @@ export default function BadgeAvatars() {
       >
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       </StyledBadge>
+<<<<<<< HEAD
     
+=======
+      <Badge
+        overlap="circular"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        badgeContent={
+          <SmallAvatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        }
+      >
+        <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+      </Badge>
+>>>>>>> origin/Abdulla15/11
     </Stack>
   );
 }

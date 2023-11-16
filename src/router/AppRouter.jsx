@@ -8,22 +8,19 @@ import NewBlog from "../pages/NewBlog"
 import MyBlogs from "../pages/MyBlogs"
 import Profile from "../pages/Profile"
 import LoginModal from "../components/LoginModal"
-import { useState } from "react"
 
 
 
 
 
 const AppRouter = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
 
   return (
     <div>
 
 
-      <Navbar handleOpen={handleOpen}/>
+      <Navbar/>
 
       <Routes>
 
@@ -40,7 +37,7 @@ const AppRouter = () => {
 
       </Routes>
 
-      <LoginModal open={open} handleClose={handleClose}/>
+      <LoginModal open={open} />
 
       <Footer />
 

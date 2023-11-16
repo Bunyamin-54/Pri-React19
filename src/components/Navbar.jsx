@@ -12,9 +12,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import BadgeAvatars from './BadgeAvatars';
 import { Stack } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { modal } from '../features/authSlice';
 
 
 const pages = [
@@ -23,19 +24,17 @@ const pages = [
   { id: 3, title: 'ABOUT', url: '/about' }
 ];
 
-const LogedOutSettings = [{ id: 1, title: 'Login', url: 'login' }]
+const LogedOutSettings = [{ id: 1, title: 'Login', url: 'login' }];
 
 const LogedInSettings = [
   { id: 1, title: "My Blogs", url: "myblogs" },
   { id: 2, title: "Profile", url: "profile" },
   { id: 3, title: "Logout", url: "/" }];
 
-
-
 // eslint-disable-next-line no-unused-vars, react/prop-types
 function Navbar({ handleOpen }) {
 
-  const [token, setToken] = useState(true)
+  const { token } = useSelector(state => state.auth)
 
   let settings = token ? LogedInSettings : LogedOutSettings
 
@@ -56,7 +55,7 @@ function Navbar({ handleOpen }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  console.log(token);
+  const dispacth = useDispatch();
 
 
   return (
@@ -164,7 +163,7 @@ function Navbar({ handleOpen }) {
                       <BadgeAvatars />
                     </IconButton>)
 
-                    : <Typography onClick={handleOpen} px={2} py={1} sx={{ cursor: 'pointer', backgroundColor: 'yellow', borderRadius: 3 }} variant="body1" color="initial">Get Started</Typography>
+                    : <Typography onClick={()=> dispacth(modal(true))} px={2} py={1} sx={{ cursor: 'pointer', backgroundColor: 'black', borderRadius: 3 }} variant="body1" color="white">Get Started</Typography>
                 }
 
               </Tooltip>

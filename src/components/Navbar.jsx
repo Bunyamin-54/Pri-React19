@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -153,9 +152,9 @@ function Navbar() {
             <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
               { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={()=>token && handleOpenUserMenu()} sx={{ p: 0 }}>
                   {
-                    token ? <BadgeAvatars /> : <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    token ? <BadgeAvatars /> : <Typography px={2} py={1} sx={{backgroundColor:'yellow' , borderRadius:3}} variant="body1" color="initial">Get Started</Typography>
                   }
 
                 </IconButton>

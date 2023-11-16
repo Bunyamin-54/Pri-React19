@@ -7,17 +7,23 @@ import PrivateRouter from "./PrivateRouter"
 import NewBlog from "../pages/NewBlog"
 import MyBlogs from "../pages/MyBlogs"
 import Profile from "../pages/Profile"
-import Login from "../pages/Login"
+import LoginModal from "../components/LoginModal"
+import { useState } from "react"
+
 
 
 
 
 const AppRouter = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
 
 
-      <Navbar />
+      <Navbar handleOpen={handleOpen}/>
 
       <Routes>
 
@@ -32,11 +38,9 @@ const AppRouter = () => {
 
         </Route>
 
-        <Route path='login' element={<Login />} />
-
-
-
       </Routes>
+
+      <LoginModal open={open} handleClose={handleClose}/>
 
       <Footer />
 

@@ -30,7 +30,10 @@ const LogedInSettings = [
   { id: 2, title: "Profile", url: "profile" },
   { id: 3, title: "Logout", url: "/" }];
 
-function Navbar() {
+
+
+// eslint-disable-next-line no-unused-vars, react/prop-types
+function Navbar({ handleOpen }) {
 
   const [token, setToken] = useState(true)
 
@@ -54,6 +57,8 @@ function Navbar() {
     setAnchorElUser(null);
   };
   console.log(token);
+
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -150,14 +155,18 @@ function Navbar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-              { token &&  <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
+              {token && <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
               <Tooltip title="Open settings">
-                <IconButton onClick={()=>token && handleOpenUserMenu()} sx={{ p: 0 }}>
-                  {
-                    token ? <BadgeAvatars /> : <Typography px={2} py={1} sx={{backgroundColor:'yellow' , borderRadius:3}} variant="body1" color="initial">Get Started</Typography>
-                  }
 
-                </IconButton>
+                {
+                  token ? (
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <BadgeAvatars />
+                    </IconButton>)
+
+                    : <Typography onClick={handleOpen} px={2} py={1} sx={{ cursor: 'pointer', backgroundColor: 'yellow', borderRadius: 3 }} variant="body1" color="initial">Get Started</Typography>
+                }
+
               </Tooltip>
             </Stack>
             <Menu

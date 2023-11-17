@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { modal } from '../features/authSlice';
 import useAuthCall from '../hooks/useAuthCall';
 import logo from '../img/logo.png'
+import { useEffect } from 'react';
 
 
 const pages = [
@@ -38,11 +39,14 @@ function Navbar() {
 
   const { token, userInfo } = useSelector(state => state.auth)
   const { logout } = useAuthCall()
+  const dispacth = useDispatch();
+
 
   let settings = token ? LogedInSettings : LogedOutSettings
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [navbarBg, setNavbarBg] = React.useState(false)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -58,12 +62,16 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const dispacth = useDispatch();
 
+    window.addEventListener("scroll", () => {
+      window.scrollY > 426 ? setNavbarBg(true) : setNavbarBg(false);
+    });
+
+ 
 
   return (
     <AppBar position="fixed" >
-      <Container maxWidth="false"  sx={{ borderBottom: '2px solid black', backgroundColor: '#FFC018' }}>
+      <Container maxWidth="false" sx={{ borderBottom: '2px solid black', transition:'all 0.3s ease-in-out' ,backgroundColor: navbarBg ? 'white' : '#FFC018' }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters >
 
@@ -88,7 +96,7 @@ function Navbar() {
                     textDecoration: 'none',
                   }}
                 >
-                  <Link to={'/'} style={{ textDecoration: 'none', color: "black" , fontWeight:'bolder' }}>
+                  <Link to={'/'} style={{ textDecoration: 'none', color: "black", fontWeight: 'bolder' }}>
                     TEAMWORK
                   </Link>
                 </Typography>
@@ -128,14 +136,14 @@ function Navbar() {
                 {pages.map((page) => (
                   <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
-                      <NavLink style={({ isActive }) => ({ fontWeight: isActive ? 300 : 600, color:"black", textDecoration: 'none' })} to={page.url} > {page.title}</NavLink>
+                      <NavLink style={({ isActive }) => ({ fontWeight: isActive ? 300 : 600, color: "black", textDecoration: 'none' })} to={page.url} > {page.title}</NavLink>
                     </Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
 
-          
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -143,7 +151,7 @@ function Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  <NavLink style={({ isActive }) => ({ fontWeight: isActive ? 700 : 400, textDecoration: 'none', color:'black' })} to={page.url} > {page.title}</NavLink>
+                  <NavLink style={({ isActive }) => ({ fontWeight: isActive ? 700 : 400, textDecoration: 'none', color: 'black' })} to={page.url} > {page.title}</NavLink>
                 </Button>
               ))}
             </Box>

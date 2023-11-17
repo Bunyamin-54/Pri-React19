@@ -24,7 +24,6 @@ export default function BlogCard({ blog }) {
     const date = new Date(publish_date).toLocaleString('us-US')
 
 
-    console.log(date);
 
     return (
         <Box sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)', display: 'flex', justifyContent: 'space-between', p: 2 }}>

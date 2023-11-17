@@ -1,18 +1,31 @@
 import { useEffect } from "react"
 import useBlogCall from "../hooks/useBlogCall"
+import { Container } from "@mui/material"
+import Header from "../components/Header"
 
 const Dashboard = () => {
 
 
-  const {getBlog} = useBlogCall()
+  const { getBlog } = useBlogCall()
 
   useEffect(() => {
     getBlog('blogs')
   }, [])
-  
+
 
   return (
-    <div><h1>dashboard</h1></div>
+    <>
+
+      <Header />
+
+      <Container maxWidth={'xl'}>
+
+
+
+
+
+      </Container>
+    </>
   )
 }
 

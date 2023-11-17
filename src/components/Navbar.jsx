@@ -13,10 +13,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import BadgeAvatars from './BadgeAvatars';
-import { Stack } from '@mui/material';
+import {  Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { modal } from '../features/authSlice';
 import useAuthCall from '../hooks/useAuthCall';
+import logo from '../img/logo.png'
 
 
 const pages = [
@@ -36,7 +37,7 @@ const LogedInSettings = [
 function Navbar() {
 
   const { token, userInfo } = useSelector(state => state.auth)
-  const {logout} = useAuthCall()
+  const { logout } = useAuthCall()
 
   let settings = token ? LogedInSettings : LogedOutSettings
 
@@ -61,28 +62,31 @@ function Navbar() {
 
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" >
+      <Container maxWidth="false" sx={{ width:'100vw',borderBottom:'2px solid black', backgroundColor:'#FFC018'}}>
+        <Toolbar disableGutters >
 
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'rgb(0, 0, 0)',
-              textDecoration: 'none',
-            }}
-          >
-            <Link to={'/'} style={{ textDecoration: 'none' }}>
-              TEAMWORK
-            </Link>
-
-          </Typography>
+          <Box sx={{display: { xs: 'none', md: 'flex' },}} flexDirection={'column'} mr={2} mt={0}>
+            <Box width={'100px'} height={'80px'} m={0}p={0}>
+              <img style={{ width: '100%', objectFit: 'cover' }} src={logo} alt="logo" />
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                pt:0,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.1rem',
+                textDecoration: 'none',
+              }}
+            >
+              <Link to={'/'} style={{ textDecoration: 'none', color:"white" }}>
+                TEAMWORK
+              </Link>
+            </Typography>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -135,7 +139,7 @@ function Navbar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
@@ -148,7 +152,7 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <NavLink style={({ isActive }) => ({ color: isActive ? "rgb(255, 255, 255)" : 'black', textDecoration: 'none' })} to={page.url} > {page.title}</NavLink>
+                <NavLink style={({ isActive }) => ({ color: isActive ? "rgb(255, 255, 255)" : 'black', textDecoration: 'none', fontWeight:600 })} to={page.url} > {page.title}</NavLink>
               </Button>
             ))}
           </Box>
@@ -196,6 +200,7 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
+     
     </AppBar>
   );
 }

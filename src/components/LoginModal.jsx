@@ -14,6 +14,7 @@ import { modal } from '../features/authSlice';
 import ReactCardFlip from 'react-card-flip';
 import '../styles/GlobalStyle.css'
 import { object, string } from "yup"
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const style = {
@@ -23,10 +24,11 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 600,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    // border: '2px solid #000',
     boxShadow: 24,
     p: 10,
     overFlow: 'hidden'
+
 };
 
 export const registerSchema = object({
@@ -44,7 +46,7 @@ export const registerSchema = object({
         .matches(/\d+/, "Password bir sayi içermelidir")
         .matches(/[a-z]/, "Password bir küçük harf içermelidir")
         .matches(/[A-Z]/, "Password bir büyük harf içermelidir")
-        .matches(/[!,?{}><%&$#£+-.]+/,"Password bir özel karakter içermelidir"),
+        .matches(/[!,?{}><%&$#£+-.]+/, "Password bir özel karakter içermelidir"),
 });
 
 // eslint-disable-next-line react/prop-types
@@ -67,7 +69,6 @@ export default function LoginModal() {
 
     return (
         <div>
-
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -87,13 +88,15 @@ export default function LoginModal() {
                         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal" flipSpeedBackToFront={2}
                             flipSpeedFrontToBack={2}>
 
-                            <Box >
+                            <Box sx={{position:'relative'}} >
+                                    <CloseIcon sx={{position:'absolute', top:-65, right:-60, cursor:'pointer'}}  onClick={()=>dispacth(modal(false))} />
+
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>Join Us</Typography>
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>ali@drl26.com</Typography>
 
                                 <Formik
                                     initialValues={{ email: "", password: "" }}
-                                    onSubmit={(values,action) => {
+                                    onSubmit={(values, action) => {
                                         login(values)
                                         action.resetForm()
                                         action.setSubmiting(false)
@@ -144,7 +147,7 @@ export default function LoginModal() {
                                                     </Button>
 
                                                     <Typography variant="caption" color="black">Don`t have an account?
-                                                        <span style={{ color: 'red', cursor: 'pointer' }} onClick={() => setIsFlipped(!isFlipped)}>Sign Up</span>
+                                                        <span style={{ color: 'red', cursor: 'pointer', marginLeft:'2px' }} onClick={() => setIsFlipped(!isFlipped)}>Sign Up</span>
                                                     </Typography>
 
                                                 </Box>
@@ -154,7 +157,8 @@ export default function LoginModal() {
                                 </Formik>
                             </Box>
 
-                            <Box >
+                            <Box sx={{position:'relative'}}>
+                            <CloseIcon sx={{position:'absolute', top:-65, right:-60, cursor:'pointer'}}  onClick={()=>dispacth(modal(false))} />
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>Register</Typography>
 
                                 <Formik

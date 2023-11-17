@@ -22,13 +22,16 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
     bgcolor: 'background.paper',
-    // border: '2px solid #000',
+    border: '1px solid #000',
     boxShadow: 24,
-    p: 10,
-    overFlow: 'hidden'
-
+    overflowY: 'hidden',
+    borderRadius: 10,
+    transition: 'all 1 ease', // Geçiş efekti ekle
+};
+const secondCardStyle = {
+    position: 'relative',
+    height: '100%', // Kartın yüksekliğini modalin yüksekliğine eşitle
 };
 
 export const registerSchema = object({
@@ -83,13 +86,13 @@ export default function LoginModal() {
                 }}
             >
                 <Fade in={modalOpen}>
-                    <Box sx={style}  >
+                    <Box sx={{ ...style, p: { xs: 2, md: 10 }, width: { xs: '80%', md: 600 } }}  >
 
                         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal" flipSpeedBackToFront={2}
                             flipSpeedFrontToBack={2}>
 
-                            <Box sx={{position:'relative'}} >
-                                    <CloseIcon sx={{position:'absolute', top:-65, right:-60, cursor:'pointer'}}  onClick={()=>dispacth(modal(false))} />
+                            <Box sx={{ position: 'relative' }} >
+                                <CloseIcon sx={{ position: 'absolute', top: { xs: 0, md: -65 }, right: { xs: 0, md: -60 }, cursor: 'pointer' }} onClick={() => dispacth(modal(false))} />
 
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>Join Us</Typography>
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>ali@drl26.com</Typography>
@@ -147,7 +150,7 @@ export default function LoginModal() {
                                                     </Button>
 
                                                     <Typography variant="caption" color="black">Don`t have an account?
-                                                        <span style={{ color: 'red', cursor: 'pointer', marginLeft:'2px' }} onClick={() => setIsFlipped(!isFlipped)}>Sign Up</span>
+                                                        <span style={{ color: 'red', cursor: 'pointer', marginLeft: '2px' }} onClick={() => setIsFlipped(!isFlipped)}>Sign Up</span>
                                                     </Typography>
 
                                                 </Box>
@@ -157,8 +160,8 @@ export default function LoginModal() {
                                 </Formik>
                             </Box>
 
-                            <Box sx={{position:'relative'}}>
-                            <CloseIcon sx={{position:'absolute', top:-65, right:-60, cursor:'pointer'}}  onClick={()=>dispacth(modal(false))} />
+                            <Box sx={{ position: 'relative', ...secondCardStyle }}>
+                                <CloseIcon sx={{ position: 'absolute', top: { xs: 0, md: -65 }, right: { xs: 0, md: -60 }, cursor: 'pointer' }} onClick={() => dispacth(modal(false))} />
                                 <Typography variant="h5" color="initial" textAlign={'center'} mb={3}>Register</Typography>
 
                                 <Formik
@@ -283,9 +286,12 @@ export default function LoginModal() {
                                                         )}
                                                     </FormControl>
 
-                                                    <Button variant='contained' color="primary" type="submit">
-                                                        SIGN IN
+                                                    <Button variant='contained' sx={{ backgroundColor: 'black', borderRadius: 5, px: 4, py: 2 }} color="secondary" type="submit">
+                                                        {
+                                                            loading ? 'Loading...' : 'SIGN IN '
+                                                        }
                                                     </Button>
+
                                                     <Typography variant="caption" color="black">Already have an account?
                                                         <span style={{ color: 'red', cursor: 'pointer' }} onClick={() => setIsFlipped(!isFlipped)}> Sign In</span>
                                                     </Typography>

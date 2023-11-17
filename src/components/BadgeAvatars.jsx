@@ -37,7 +37,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 
-export default function BadgeAvatars() {
+// eslint-disable-next-line react/prop-types
+export default function BadgeAvatars({image}) {
   return (
     <Stack direction="row" spacing={2}>
       <StyledBadge
@@ -45,7 +46,7 @@ export default function BadgeAvatars() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Remy Sharp" src={image} />
       </StyledBadge>
     
     </Stack>

@@ -16,6 +16,7 @@ import BadgeAvatars from './BadgeAvatars';
 import { Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { modal } from '../features/authSlice';
+import useAuthCall from '../hooks/useAuthCall';
 
 
 const pages = [
@@ -32,9 +33,10 @@ const LogedInSettings = [
   { id: 3, title: "Logout", url: "/" }];
 
 // eslint-disable-next-line no-unused-vars, react/prop-types
-function Navbar({ handleOpen }) {
+function Navbar() {
 
-  const { token } = useSelector(state => state.auth)
+  const { token, userInfo } = useSelector(state => state.auth)
+  const {logout} = useAuthCall()
 
   let settings = token ? LogedInSettings : LogedOutSettings
 
@@ -66,19 +68,18 @@ function Navbar({ handleOpen }) {
           <Typography
             variant="h6"
             noWrap
-
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: 'rgb(81, 12, 81)',
+              color: 'rgb(0, 0, 0)',
               textDecoration: 'none',
             }}
           >
             <Link to={'/'} style={{ textDecoration: 'none' }}>
-              TEAM WORK
+              TEAMWORK
             </Link>
 
           </Typography>
@@ -138,7 +139,7 @@ function Navbar({ handleOpen }) {
               textDecoration: 'none',
             }}
           >
-            TEAM WORK
+            TEAMWORK
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -154,16 +155,16 @@ function Navbar({ handleOpen }) {
 
           <Box sx={{ flexGrow: 0 }}>
             <Stack spacing={1} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-              {token && <Typography variant="body1" color="initial">ali@gmail.com</Typography>}
+              {token && <Typography variant="body1" color="initial">{userInfo?.username}</Typography>}
               <Tooltip title="Open settings">
 
                 {
                   token ? (
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <BadgeAvatars />
+                      <BadgeAvatars image={userInfo?.image} />
                     </IconButton>)
 
-                    : <Typography onClick={()=> dispacth(modal(true))} px={2} py={1} sx={{ cursor: 'pointer', backgroundColor: 'black', borderRadius: 3 }} variant="body1" color="white">Get Started</Typography>
+                    : <Typography onClick={() => dispacth(modal(true))} px={2} py={1} sx={{ cursor: 'pointer', backgroundColor: 'black', borderRadius: 3 }} variant="body1" color="white">Get Started</Typography>
                 }
 
               </Tooltip>
@@ -187,7 +188,7 @@ function Navbar({ handleOpen }) {
               {settings.map((setting) => (
                 <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
-                    <NavLink onClick={() => setting.title === 'Logout' && setToken(!token)} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>
+                    <NavLink onClick={() => setting.title === 'Logout' && logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>
                   </Typography>
                 </MenuItem>
               ))}

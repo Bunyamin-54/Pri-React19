@@ -1,31 +1,58 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess, modal } from "../features/authSlice";
-import { toastErrorNotify } from "../helper/ToastNotify";
+import { fetchFail, fetchStart, loginSuccess, logoutSuccess, modal, registerSuccess } from "../features/authSlice";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useAuthCall = () => {
-  const BASE_URL = "http://31510.fullstack.clarusway.com/";
-  const dispacth = useDispatch();
+  
+  const dispatch = useDispatch();
 
 
   const login = async (userData) => {
-    dispacth(fetchStart());
+    dispatch(fetchStart());
 
     try {
-      const { data } = await axios.post(
-        BASE_URL + "users/auth/login/",
-        userData
-      );
-      dispacth(loginSuccess(data));
-      dispacth(modal(false))
+      const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}` + "users/auth/login/",userData);
+      dispatch(loginSuccess(data));
+      dispatch(modal(false))
     } catch (error) {
-      dispacth(fetchFail());
+      dispatch(fetchFail());
       console.log(error);
       toastErrorNotify('User Credentials are not correct. Please  try again !')
     }
   };
 
-  return { login };
+  const logout = async () => {
+    dispatch(fetchStart());
+
+    try {
+      await axios.post(`${import.meta.env.VITE_BASE_URL}` + "users/auth/logout/");
+      dispatch(logoutSuccess());
+      toastSuccessNotify('Logout Successed !')
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify('You could not Logout. Something went wrong.')
+      console.log(error);
+
+    }
+  };
+
+ const register = async (userData) => {
+  dispatch(fetchStart())
+    try {
+      const {data} = await axios.post(`${import.meta.env.VITE_BASE_URL}users/register/`, userData);
+      dispatch(registerSuccess(data))
+      dispatch(modal(false))
+      toastSuccessNotify('Register Successfull !')
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify((error?.request ) ? error?.request?.response : error.message )
+      console.log(error);
+    }
+  };
+
+
+  return { login , logout,register};
 };
 
 export default useAuthCall;

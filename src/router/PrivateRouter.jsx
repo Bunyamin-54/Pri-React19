@@ -1,14 +1,24 @@
-import { Navigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
+import { modal } from "../features/authSlice"
 
 
 const PrivateRouter = () => {
 
-    const token = false
+  const { token } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
-  return  token ? <Outlet/>  : <Navigate  to={'login'}/>
-   
   
+
+  if (!token) {
+    dispatch(modal(true))  
+    return null; 
+  }
+
+
+  return <Outlet />
+
+
 }
 
 export default PrivateRouter

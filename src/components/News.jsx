@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material"
+import { Box, CardContent,Typography } from "@mui/material"
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"

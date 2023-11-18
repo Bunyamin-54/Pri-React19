@@ -75,7 +75,7 @@ export default function BlogCard({ blog }) {
 
             </Box>
 
-            <Stack justifyContent={'center'} alignItems={'center'} marginXY={'auto'} sx={{ flex: '1 0 0' }}>
+            <Stack justifyContent={'center'} alignItems={'center'} margin={'auto'} sx={{ flex: '1 0 0' }}>
                 <img style={{ objectFit: "contain", height: '80%', width: '80%' }} src={image} alt={title} />
             </Stack>
 

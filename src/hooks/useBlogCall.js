@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchFail,
   fetchStart,
@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 const useBlogCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  const { token } = useSelector((state) => state.auth);
+
 
   const { axiosWithToken } = useAxios();
 
@@ -91,7 +94,38 @@ const useBlogCall = () => {
     }
   };
 
-  return { getBlog, getCategories, createBlog , updateBlog,getBlogById, deleteBlog };
+  const createLike = async (id) => {
+    try {
+      await axiosWithToken.post(`api/likes/${id}/`);
+      getBlog('blogs');
+      getBlogById('blogDetail',id)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createComment = async (comment, id) => {
+    try {
+      await axiosWithToken.post(`api/comments/${id}/`, comment);
+      getBlogById('blogDetail', id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUserBlog = async (url, userId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(`api/blogs/?author=${userId}`);
+      dispatch(getBloDetLikSuccess({ url, data }));
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Data can not be Fetched !");
+      console.log(error);
+    }
+  };
+
+  return { getBlog, getCategories, createBlog , updateBlog,getBlogById, deleteBlog, createLike, createComment, getUserBlog};
 };
 
 export default useBlogCall;

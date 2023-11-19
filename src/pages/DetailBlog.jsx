@@ -13,24 +13,35 @@ import { Badge, Box, Button, CardMedia, Chip, Stack } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import BlogModal from '../components/BlogModal';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import useBlogCall from '../hooks/useBlogCall';
 
 
 
 export default function DetailBlog() {
-
-    const location = useLocation();
-    const blogDetail = location.state
-
-    const { userInfo } = useSelector(state => state.auth)
-
+    const { id } = useParams()
     const navigate = useNavigate()
+    const { userInfo } = useSelector(state => state.auth)
+    const { blogDetail } = useSelector(state => state.blog)
+    const {getBlogById} = useBlogCall()
+
+
+    const [isUpdate, setIsUpdate] = useState(null)
     const [isCliked, setIsCliked] = useState(false)
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+   
 
 
+    useEffect(() => {
+        getBlogById('blogDetail', id)
+    }, [])
+    
     const isAuthor = blogDetail?.author === userInfo?.username
-
 
 
     return (
@@ -42,7 +53,8 @@ export default function DetailBlog() {
                             sx={{ mb: 5, p: 0 }}
                             avatar={
                                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                    {blogDetail?.author.slice(0, 1).toUpperCase()}
+                                    {blogDetail?.author ? blogDetail?.author.slice(0, 1).toUpperCase() : 'A'}
+                                    
                                 </Avatar>
                             }
                             title={<span style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{blogDetail?.author}</span>}
@@ -89,10 +101,10 @@ export default function DetailBlog() {
                             {
                                 isAuthor &&
                                 <Stack spacing={2} direction={{ md: 'column', lg: 'row' }} useFlexGap flexWrap="wrap">
-                                    <Button variant="contained" color="success" >
+                                    <Button variant="contained" color="success" onClick={()=> {handleOpen(), setIsUpdate(true)}}>
                                         Update
                                     </Button>
-                                    <Button variant="outlined" color="error" >
+                                    <Button variant="outlined" color="error" onClick={()=> {handleOpen(), setIsUpdate(false)}}>
                                         Delete
                                     </Button>
                                 </Stack>
@@ -117,7 +129,7 @@ export default function DetailBlog() {
             </Box>
 
 
-
+            <BlogModal open={open} setOpen={setOpen} blogDetail={blogDetail} isUpdate={isUpdate}/>
         </>
 
     );

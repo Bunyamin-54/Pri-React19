@@ -77,7 +77,7 @@ const navigate = useNavigate()
 
             </Box>
 
-            <Stack justifyContent={'center'} alignItems={'center'} margin={'auto'} sx={{ flex: '1 0 0', cursor:'pointer'}} onClick={() => navigate(`detail/${id}`, {state:blog} )} >
+            <Stack justifyContent={'center'} alignItems={'center'} margin={'auto'} sx={{ flex: '1 0 0', cursor:'pointer'}} onClick={() => navigate(`detail/${id}`)} >
                 <img style={{ objectFit: "contain", height: '80%', width: '80%' }} src={image} alt={title} />
             </Stack>
 

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   fetchFail,
   fetchStart,
@@ -6,10 +6,12 @@ import {
 } from "../features/blogSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import axios from "axios";
+import useAxios from "./useAxios";
 
 const useBlogCall = () => {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
+
+  const { axiosWithToken } = useAxios();
 
   const getBlog = async (url) => {
     dispatch(fetchStart());
@@ -54,7 +56,28 @@ const useBlogCall = () => {
     }
   };
 
-  return { getBlog, getCategories, createBlog };
+  const updateBlog = async (updatedBlog, id) => {
+    try {
+      await axiosWithToken.put(`api/blogs/${id}/`, updatedBlog);
+      toastSuccessNotify("Updated is Secuccessful !");
+    } catch (error) {
+      toastErrorNotify("It Could not Updated !")
+      console.log(error);
+    }
+  };
+
+  const getBlogById = async (url, id) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(`api/blogs/${id}/`);
+      dispatch(getBloDetLikSuccess({ url, data }));
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+
+  return { getBlog, getCategories, createBlog , updateBlog,getBlogById };
 };
 
 export default useBlogCall;

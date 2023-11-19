@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 
 // eslint-disable-next-line react/prop-types
-const BlogForm = ({formValues}) => {
+const BlogForm = ({formValues , handleClose}) => {
     
     const {getCategories, createBlog, updateBlog} = useBlogCall()
 
@@ -22,9 +22,12 @@ const BlogForm = ({formValues}) => {
             initialValues={formValues}
             onSubmit={(values, action) => {
 
-                // eslint-disable-next-line react/prop-types
-                ("id" in formValues) ? updateBlog(formValues,formValues.id) : createBlog(values)
-              
+                if("id" in formValues){
+                  updateBlog(values, values.id)
+                  handleClose()
+                }else{
+                  createBlog(values)
+                }
               action.resetForm()
               action.setSubmitting(false)
             }}

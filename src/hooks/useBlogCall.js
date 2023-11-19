@@ -7,9 +7,11 @@ import {
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import axios from "axios";
 import useAxios from "./useAxios";
+import { useNavigate } from "react-router-dom";
 
 const useBlogCall = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { axiosWithToken } = useAxios();
 
@@ -59,6 +61,7 @@ const useBlogCall = () => {
   const updateBlog = async (updatedBlog, id) => {
     try {
       await axiosWithToken.put(`api/blogs/${id}/`, updatedBlog);
+      getBlogById('blogDetail',id)
       toastSuccessNotify("Updated is Secuccessful !");
     } catch (error) {
       toastErrorNotify("It Could not Updated !")
@@ -77,7 +80,18 @@ const useBlogCall = () => {
     }
   };
 
-  return { getBlog, getCategories, createBlog , updateBlog,getBlogById };
+  const deleteBlog = async (id) => {
+    try {
+      await axiosWithToken.delete(`api/blogs/${id}/`);
+      toastSuccessNotify("Blog is Deleted Secuccessfully !");
+      navigate('/')
+    } catch (error) {
+      toastErrorNotify("It Could not Deleted !")
+      console.log(error);
+    }
+  };
+
+  return { getBlog, getCategories, createBlog , updateBlog,getBlogById, deleteBlog };
 };
 
 export default useBlogCall;

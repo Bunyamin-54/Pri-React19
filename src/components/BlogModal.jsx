@@ -21,7 +21,6 @@ const style = {
 
 export default function BlogModal({ open, setOpen, blogDetail, isUpdate }) {
 
-console.log(blogDetail);
     const handleClose = () => setOpen(false);
 
 
@@ -44,8 +43,8 @@ console.log(blogDetail);
                     <Box sx={style}>
                         {
                             isUpdate
-                                ? <BlogForm formValues={blogDetail} />
-                                : <BlogDel handleClose={handleClose}/>
+                                ? <BlogForm formValues={blogDetail}  handleClose={handleClose}/>
+                                : <BlogDel id={blogDetail.id}  handleClose={handleClose}/>
                                 
                         }
 

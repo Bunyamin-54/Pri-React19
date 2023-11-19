@@ -36,25 +36,25 @@ export default function BlogCard({ blog }) {
     return (
         <Box sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)', display: 'flex', justifyContent: 'space-between', p: 2 }}>
             <Box sx={{ flex: '3 0 0' }} >
-                <CardHeader
-
+                <CardHeader 
                     avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        <Avatar onClick={() => navigate(`detail/${id}`)} sx={{ bgcolor: red[500], cursor:'pointer' }} aria-label="recipe">
                             A
                         </Avatar>
                     }
-                    title={<span style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{author}</span>}
+                    title={<span onClick={() => navigate(`detail/${id}`)} style={{ fontWeight: 'bold', textTransform: 'uppercase' , cursor:'pointer'}}>{author}</span>}
                     subheader={date}
                 />
-                <CardContent sx={{ paddingTop: 0 }}>
-                    <Typography variant="h5" color="initial" >{title}</Typography>
+                <CardContent sx={{ paddingTop: 0, cursor:'pointer' }} onClick={() => navigate(`detail/${id}`)}>
+                    <Typography variant="h5" color="initial" >{title.slice(0, 50)}</Typography>
 
-                    <Typography variant="body2" color="text.secondary" mb={1} sx={{
+                    <Typography variant="body2"  color="text.secondary" mb={1} sx={{
                         overflow: 'hidden',
-                        // textOverflow: 'ellipsis',
-                        whiteSpace: 'wrap'
+                        whiteSpace: 'wrap',
+                        display:{xs:'none', md:'flex'}
                     }}>{content.slice(0, 150)}...</Typography>
-                    <Chip size="small" sx={{ backgroundColor: '#F2F2F2' }} label={"# " + category_name} />
+
+                    <Chip size="small" sx={{ backgroundColor: '#F2F2F2', mt:{xs:3 , md:0} }} label={"# " + category_name} />
 
                 </CardContent>
 

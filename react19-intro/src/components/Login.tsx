@@ -32,33 +32,34 @@ import { loginUser } from "../api/user";
 // 7
 // 6
 
-// persembe 19, cumartesi 11 
+// persembe 19, cumartesi 11
 
 export default function Login() {
   // built in hook - useState
   const [username, setUsername] = useState(""); // initial state ne gonderirsek type o olur
   const [password, setPassword] = useState<string>("");
-  const [user, setUser] = useState<null | { email: string, username: string }>(null);
+  const [user, setUser] = useState<null | { email: string; username: string }>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // statelerin initial degerlerini ekledik boylelikle her form submit isleminde tum state temizlenmis olucak.
     setLoading(true);
     setError(null);
-    setUser(null)
+    setUser(null);
 
     const response = await loginUser(username, password);
+    console.log(response);
 
     if (response.success && response.data) {
-      setUser(response.data)
+      setUser(response.data);
     } else {
-      setError(response?.error || 'Login failed');
+      setError(response?.error || "Login failed");
     }
 
-    setLoading(false)
-
+    setLoading(false);
   };
 
   return (
@@ -84,12 +85,10 @@ export default function Login() {
           />
         </div>
 
-        <button type="submit">
-          {loading ? 'Loading..' : 'Login'}
-        </button>
+        <button type="submit">{loading ? "Loading.." : "Login"}</button>
       </form>
-      {user && <p style={{ color: 'green' }}>{user.email}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {user && <p style={{ color: "green" }}>{user.email}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

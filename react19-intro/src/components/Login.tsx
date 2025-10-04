@@ -43,7 +43,10 @@ export default function Login() {
   const [error, setError] = useState<null | string>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+
+    // console.log(username,password);
+
+    e.preventDefault(); // formun defaul yapisini onler
 
     // statelerin initial degerlerini ekledik boylelikle her form submit isleminde tum state temizlenmis olucak.
     setLoading(true);
@@ -61,6 +64,8 @@ export default function Login() {
 
     setLoading(false);
   };
+
+ 
 
   return (
     <div>

@@ -8,7 +8,7 @@ interface initialState {
 
 export default function Loginv2() {
 
-    
+// handleSubmit for useStateAction gets 2 paramters; initialState, formData
   const handleSubmit = async (prevState: initialState, formData: FormData) => {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
@@ -27,6 +27,8 @@ export default function Loginv2() {
     error: null,
     user: null,
   } as initialState);
+
+  console.log(state);
 
   return (
     <div>

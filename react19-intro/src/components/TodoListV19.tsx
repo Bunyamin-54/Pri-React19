@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useOptimistic, useState } from "react";
 
 // interface -> genellikle objeler icin kullanilir
 // type - genellikle fn icin kullanilir
@@ -9,23 +9,27 @@ interface Todo {
 }
 
 export default function TodoListV19() {
-  const [todos, setTodos] = useState<Todo[]>([
-    { text: "todo 1", pending: true },
-    { text: "todo 2", pending: false },
-  ]);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const [optimisticData, setOptimisticData] = useOptimistic(
+    todos,
+    (oldTodos, newTodo: string) => [
+      ...oldTodos,
+      { text: newTodo, pending: true },
+    ]
+  );
 
   async function handleAction(formData: FormData) {
-    // console.log([...formData.entries()]);
-
     const todo = formData.get("todo") as string;
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setOptimisticData(todo);
+
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     setTodos((prevTodos: Todo[]) => [
       ...prevTodos,
-      { text: todo, pending: true },
+      { text: todo, pending: false },
     ]);
-
   }
 
   return (
@@ -36,7 +40,7 @@ export default function TodoListV19() {
         <button type="submit">Add Todo</button>
       </form>
 
-      {todos.map((todo, index) => {
+      {optimisticData.map((todo, index) => {
         return (
           <div key={index} style={{ opacity: todo.pending ? 0.5 : 1 }}>
             {todo.text}

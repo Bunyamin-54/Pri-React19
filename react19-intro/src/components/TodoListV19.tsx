@@ -8,7 +8,7 @@ interface Todo {
   pending: boolean;
 }
 
-export default function TodoList() {
+export default function TodoListV19() {
   const [todos, setTodos] = useState<Todo[]>([
     { text: "todo 1", pending: true },
     { text: "todo 2", pending: false },

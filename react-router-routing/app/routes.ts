@@ -34,7 +34,6 @@ export default [
         route('new', 'routes/new-post.tsx'),
         route(':id', 'routes/detail-post.tsx'),
         route(':id/update', 'routes/update-post.tsx'),
-
     ])
 
 

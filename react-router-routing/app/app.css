@@ -13,3 +13,18 @@ body {
     color-scheme: dark;
   }
 }
+
+@layer utilities {
+
+  .link {
+    @apply block p-2 hover:text-white
+  }
+
+  .active{
+    @apply bg-blue-600 
+  }
+
+  .inactive{
+    @apply text-gray-300 
+  }
+}

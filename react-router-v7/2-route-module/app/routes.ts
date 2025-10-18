@@ -47,6 +47,4 @@ export default [
     ])
 
 
-
-
 ] satisfies RouteConfig;

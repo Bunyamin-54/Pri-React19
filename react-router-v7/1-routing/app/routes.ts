@@ -29,14 +29,23 @@ export default [
     // route('posts/:id/update', 'routes/update-post.tsx'),
 
     // prefix route
-    ...prefix('posts',[
-        index('routes/posts.tsx'),
-        route('new', 'routes/new-post.tsx'),
-        route(':id', 'routes/detail-post.tsx'),
-        route(':id/update', 'routes/update-post.tsx'),
-    ]),
+    // ...prefix('posts',[
+    //     index('routes/posts.tsx'),
+    //     route('new', 'routes/new-post.tsx'),
+    //     route(':id', 'routes/detail-post.tsx'),
+    //     route(':id/update', 'routes/update-post.tsx'),
+    // ]),
 
-    
+    // prefix and layout combined
+    ...prefix('posts', [
+        layout('layouts/posts-layout.tsx',[
+            index('routes/posts.tsx'),
+            route(':id', 'routes/detail-post.tsx')
+        ]),
+         route('new', 'routes/new-post.tsx'),
+         route(':id/update', 'routes/update-post.tsx')
+    ])
+
 
 
 

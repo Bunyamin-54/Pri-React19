@@ -9,7 +9,7 @@ console.log(greeting);
 
 let age: number = 25
 const isStudent: boolean = true;
-
+ // test
 //! age = '25'
 
 //* ---- 2. TYPE INFERENCE -----
